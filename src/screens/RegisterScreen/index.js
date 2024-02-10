@@ -1,5 +1,5 @@
 import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import LogoIcon from '../../images/LogoIcon.png';
+import IconLogo from '../../images/IconLogo.png';
 const RegisterScreen = ({navigation}) => {
     const styles = StyleSheet.create({
         container: {
@@ -37,20 +37,20 @@ const RegisterScreen = ({navigation}) => {
         formInput: {
             backgroundColor:"#FFF",
             borderRadius:15,
-            height:50,
+            height:60,
             marginBottom:20,
             justifyContent:"center",
             padding:20
         },
         formInputPlaceholder: {
             fontSize: 18,
-            height:50,
+            height:60,
             color:"black"
         },
         formButton: {
             backgroundColor:"#FFC14F",
             borderRadius:15,
-            height:50,
+            height:60,
             alignItems:"center",
             justifyContent:"center",
             marginTop:20,
@@ -65,7 +65,7 @@ const RegisterScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View style={styles.headerBlock}>
-                <Image source={LogoIcon} style={styles.headerLogo}/>
+                <Image source={IconLogo} style={styles.headerLogo}/>
                 <Text style={styles.headerTitle}>PENDAFTARAN</Text>
                 <Text style={styles.headerSubtitle}>Silahkan melakukan pendaftaran untuk memulai menggunakan ISPEBAMETA</Text>
             </View>

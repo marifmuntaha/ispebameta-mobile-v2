@@ -1,10 +1,11 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import LogoIcon from "../../images/LogoIcon.png";
-import UserIcon from "../../images/UserIconWhite.png";
-import UserMenu from "../../images/userDefault.png";
-import PencilMenu from "../../images/PencilDefault.png";
-import ReportMenu from "../../images/ReportDefault.png";
-import AboutMenu from "../../images/AboutDefault.png";
+import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import IconLogo from "../../images/IconLogo.png";
+import IconUserWhite from "../../images/IconUserOutlineWhite.png";
+import IconUserDefault from "../../images/IconUserDefault.png";
+import IconPencilDefault from "../../images/IconPencilDefault.png";
+import IconFileDefault from "../../images/IconFileDefault.png";
+import IconQuestion from "../../images/IconQuestion.png";
+import Dimension from "../../layouts/Dimention";
 const DashboardScreen = ({navigation}) => {
     const styles = StyleSheet.create({
         container: {
@@ -59,7 +60,7 @@ const DashboardScreen = ({navigation}) => {
             height: 37
         },
         greeting: {
-            marginTop: 45,
+            marginTop: Dimension.screenHeight / 23.59,
             marginLeft: 10
         },
         greetingText: {
@@ -73,7 +74,7 @@ const DashboardScreen = ({navigation}) => {
         container: {
             flexDirection: 'row',
             justifyContent: 'space-evenly',
-            marginTop: -100,
+            marginTop: Dimension.screenHeight / -10.62,
         },
         box: {
             flexDirection: 'column',
@@ -132,11 +133,11 @@ const DashboardScreen = ({navigation}) => {
             <View style={header.container}>
                 <View style={header.navbar}>
                     <View style={header.navbarTitle}>
-                        <Image source={LogoIcon} style={header.navbarTitleLogo}/>
+                        <Image source={IconLogo} style={header.navbarTitleLogo}/>
                         <Text style={header.navbarTitleText}>Dashboard</Text>
                     </View>
                     <View style={header.navbarUser}>
-                        <Image source={UserIcon} style={header.navbarUserIcon}/>
+                        <Image source={IconUserWhite} style={header.navbarUserIcon}/>
                     </View>
                 </View>
                 <View style={header.greeting}>
@@ -148,7 +149,7 @@ const DashboardScreen = ({navigation}) => {
                 <View style={widget.box}>
                     <Text style={widget.boxText}>2 GURU</Text>
                     <TouchableOpacity
-                        onPress = {() => navigation.replace('LoginScreen')}
+                        onPress = {() => navigation.replace('TeacherScreen')}
                         style={widget.boxButton}>
                         <Text style={widget.boxButtonLabel}>LIHAT</Text>
                     </TouchableOpacity>
@@ -156,47 +157,49 @@ const DashboardScreen = ({navigation}) => {
                 <View style={widget.box}>
                     <Text style={widget.boxText}>3 LAPORAN</Text>
                     <TouchableOpacity
-                        onPress = {() => navigation.replace('LoginScreen')}
+                        onPress = {() => navigation.replace('ReportScreen')}
                         style={widget.boxButton}>
                         <Text style={widget.boxButtonLabel}>LIHAT</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-            <Text style={styles.mainmenu}>MAINMENU</Text>
-            <View style={mainmenu.container}>
-                <TouchableOpacity
-                    onPress = {() => navigation.replace('TeacherScreen')}
-                    style={mainmenu.boxButton}>
-                    <Image source={UserMenu} style={mainmenu.boxButtonImage}/>
-                    <Text style={widget.boxButtonLabel}>DATA GURU</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress = {() => navigation.replace('SupervisiScreen')}
-                    style={mainmenu.boxButton}>
-                    <Image source={PencilMenu} style={mainmenu.boxButtonImage}/>
-                    <Text style={widget.boxButtonLabel}>PENILAIAN</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={mainmenu.container}>
-                <TouchableOpacity
-                    onPress = {() => navigation.replace('ReportScreen')}
-                    style={mainmenu.boxButton}>
-                    <Image source={ReportMenu} style={{
-                        height: 90,
-                        width: 66
-                    }}/>
-                    <Text style={widget.boxButtonLabel}>LAPORAN</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress = {() => navigation.replace('LoginScreen')}
-                    style={mainmenu.boxButton}>
-                    <Image source={AboutMenu} style={{
-                        width: 58,
-                        height: 90
-                    }}/>
-                    <Text style={widget.boxButtonLabel}>TENTANG</Text>
-                </TouchableOpacity>
-            </View>
+            <ScrollView>
+                <Text style={styles.mainmenu}>MAINMENU</Text>
+                <View style={mainmenu.container}>
+                    <TouchableOpacity
+                        onPress = {() => navigation.replace('TeacherScreen')}
+                        style={mainmenu.boxButton}>
+                        <Image source={IconUserDefault} style={mainmenu.boxButtonImage}/>
+                        <Text style={widget.boxButtonLabel}>DATA GURU</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress = {() => navigation.replace('SupervisiScreen')}
+                        style={mainmenu.boxButton}>
+                        <Image source={IconPencilDefault} style={mainmenu.boxButtonImage}/>
+                        <Text style={widget.boxButtonLabel}>PENILAIAN</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={mainmenu.container}>
+                    <TouchableOpacity
+                        onPress = {() => navigation.replace('ReportScreen')}
+                        style={mainmenu.boxButton}>
+                        <Image source={IconFileDefault} style={{
+                            height: 90,
+                            width: 66
+                        }}/>
+                        <Text style={widget.boxButtonLabel}>LAPORAN</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress = {() => alert('Halaman Tentang')}
+                        style={mainmenu.boxButton}>
+                        <Image source={IconQuestion} style={{
+                            width: 58,
+                            height: 90
+                        }}/>
+                        <Text style={widget.boxButtonLabel}>TENTANG</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         </View>
     )
 }

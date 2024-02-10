@@ -1,6 +1,6 @@
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import Header from "../../components/Header";
-import Accordion from "../../components/Accordion";
+import Header from "../../layouts/Header";
+import Accordion from "../../layouts/Accordion";
 
 const EvaluationScreen = ({navigation}) => {
     const styles = StyleSheet.create({
@@ -142,6 +142,11 @@ const EvaluationScreen = ({navigation}) => {
             </View>
             <ScrollView style={content.container}>
                 <Accordion data={data}/>
+                <TouchableOpacity
+                    onPress = {() => navigation.replace('SupervisiScreen')}
+                    style={styles.formButton}>
+                    <Text style={styles.formButtonLabel}>SIMPAN</Text>
+                </TouchableOpacity>
             </ScrollView>
         </View>
     )

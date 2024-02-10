@@ -1,5 +1,5 @@
 import {ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import Header from "../../components/Header";
+import Header from "../../layouts/Header";
 const Add = ({navigation}) => {
     const styles = StyleSheet.create({
         container: {

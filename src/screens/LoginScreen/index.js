@@ -1,5 +1,5 @@
 import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import LogoIcon from '../../images/LogoIcon.png';
+import IconLogo from '../../images/IconLogo.png';
 const LoginScreen = ({navigation}) => {
     const styles = StyleSheet.create({
         container: {
@@ -36,20 +36,20 @@ const LoginScreen = ({navigation}) => {
         formInput: {
             backgroundColor:"#FFF",
             borderRadius:15,
-            height:50,
+            height:60,
             marginBottom:20,
             justifyContent:"center",
             padding:20
         },
         formInputPlaceholder: {
             fontSize: 18,
-            height:50,
+            height:60,
             color:"black"
         },
         formButtonLogin: {
             backgroundColor:"#FFC14F",
             borderRadius:15,
-            height:50,
+            height:60,
             alignItems:"center",
             justifyContent:"center",
             marginTop:20,
@@ -59,7 +59,7 @@ const LoginScreen = ({navigation}) => {
             borderRadius:15,
             borderWidth: 1,
             borderColor: "white",
-            height:50,
+            height:60,
             alignItems:"center",
             justifyContent:"center",
             marginTop:20,
@@ -70,11 +70,10 @@ const LoginScreen = ({navigation}) => {
             fontSize:18
         }
     });
-
     return (
         <View style={styles.container}>
             <View style={styles.headerBlock}>
-                <Image source={LogoIcon} style={styles.headerLogo}/>
+                <Image source={IconLogo} style={styles.headerLogo}/>
                 <Text style={styles.headerTitle}>MASUK</Text>
                 <Text style={styles.headerSubtitle}>Silahkan masuk menggunakan akun anda</Text>
             </View>

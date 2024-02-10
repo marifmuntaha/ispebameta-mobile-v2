@@ -1,6 +1,6 @@
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import Header from "../../components/Header";
-import UserIconDefault from "../../images/userDefault.png";
+import Header from "../../layouts/Header";
+import UserIconDefault from "../../images/IconUserDefault.png";
 import IconTrash from "../../images/IconTrash.png";
 import ArrowRight from "../../images/icon-arrow-right.png";
 import React from "react";

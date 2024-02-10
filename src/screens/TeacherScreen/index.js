@@ -1,7 +1,7 @@
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import UserIconDefault from "../../images/userDefault.png";
+import IconUser from "../../images/IconUserDefault.png";
 import IconTrash from "../../images/IconTrash.png";
-import Header from "../../components/Header";
+import Header from "../../layouts/Header";
 
 const TeacherScreen = ({navigation}) => {
     const styles = StyleSheet.create({
@@ -92,7 +92,7 @@ const TeacherScreen = ({navigation}) => {
                 subtitle="Anda dapat menambah, mengubah & menghapus data guru"
             />
             <TouchableOpacity
-                onPress = {() => navigation.replace('TeacherAddScreen')}
+                onPress = {() => navigation.goBack('TeacherAddScreen')}
                 style={styles.formButton}>
                 <Text style={styles.formButtonLabel}>TAMBAH GURU</Text>
             </TouchableOpacity>
@@ -101,7 +101,7 @@ const TeacherScreen = ({navigation}) => {
                     <View style={content.box} key={teacher.id}>
                         <View style={content.boxContent}>
                             <View style={content.boxImage}>
-                                <Image source={UserIconDefault} style={{width: 40, height: 40}}/>
+                                <Image source={IconUser} style={{width: 40, height: 40}}/>
                             </View>
                             <View style={content.boxText}>
                                 <Text style={{fontWeight: 'bold', fontSize: 20, color: "#161D6F"}}>{teacher.name}</Text>

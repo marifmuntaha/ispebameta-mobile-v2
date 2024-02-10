@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import ArrowLeftIcon from "../../images/icon-arrow-left.png";
-import UserIcon from "../../images/UserIconWhite.png";
+import UserIcon from "../../images/IconUserOutlineWhite.png";
 
 const Header = ({navigation, backTo, title, subtitle}) => {
     const header = StyleSheet.create({
