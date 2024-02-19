@@ -6,6 +6,8 @@ import IconPencilDefault from "../../images/IconPencilDefault.png";
 import IconFileDefault from "../../images/IconFileDefault.png";
 import IconQuestion from "../../images/IconQuestion.png";
 import Dimension from "../../layouts/Dimention";
+import {useContext, useEffect} from "react";
+import {UserContext} from "../UserScreen/UserContext";
 const DashboardScreen = ({navigation}) => {
     const styles = StyleSheet.create({
         container: {
@@ -128,6 +130,7 @@ const DashboardScreen = ({navigation}) => {
             height: 90
         }
     })
+    const user = useContext(UserContext);
     return (
         <View style={styles.container}>
             <View style={header.container}>
@@ -142,7 +145,7 @@ const DashboardScreen = ({navigation}) => {
                 </View>
                 <View style={header.greeting}>
                     <Text style={header.greetingText}>Selamat Datang</Text>
-                    <Text style={header.greetingText}>Ali Ma'sum Efendi, S.Pd.</Text>
+                    <Text style={header.greetingText}>{user.name}</Text>
                 </View>
             </View>
             <View style={widget.container}>

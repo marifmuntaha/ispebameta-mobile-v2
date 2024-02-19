@@ -1,5 +1,7 @@
 import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import IconLogo from '../../images/IconLogo.png';
+import {actionType, Dispatch} from "../../reducer";
+import {useState} from "react";
 const LoginScreen = ({navigation}) => {
     const styles = StyleSheet.create({
         container: {
@@ -70,6 +72,11 @@ const LoginScreen = ({navigation}) => {
             fontSize:18
         }
     });
+    const [loading, setLoading] = useState(false);
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
     return (
         <View style={styles.container}>
             <View style={styles.headerBlock}>
@@ -84,18 +91,26 @@ const LoginScreen = ({navigation}) => {
                         style={styles.formInputPlaceholder}
                         placeholder="Masukkan Alamat Email"
                         placeholderTextColor="#929090"
+                        onChangeText={(e) => setFormData({...formData, email: e})}
                     />
                 </View>
                 <Text style={styles.formInputLabel}>Kata Sandi</Text>
                 <View style={styles.formInput}>
                     <TextInput
+                        secureTextEntry={true}
                         style={styles.formInputPlaceholder}
                         placeholder="Masukkan Kata Sandi"
                         placeholderTextColor="#929090"
+                        onChangeText={(e) => setFormData({...formData, password: e})}
                     />
                 </View>
                 <TouchableOpacity
-                    onPress = {() => navigation.replace('DashboardScreen')}
+                    onPress = {() => Dispatch(actionType.AUTH_LOGIN, {
+                        formData: formData,
+                        setLoading: setLoading,
+                    }).then(resp => {
+                        resp ? navigation.replace('DashboardScreen') : null
+                    })}
                     style={styles.formButtonLogin}>
                     <Text style={styles.formButtonLabel}>MASUK</Text>
                 </TouchableOpacity>

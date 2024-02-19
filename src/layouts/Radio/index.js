@@ -1,7 +1,7 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useState} from "react";
 
-const Radio = ({data}) => {
+const Radio = ({data, instrument, result, setResult}) => {
     const styles = StyleSheet.create({
         form: {
             flexDirection: "row",
@@ -35,7 +35,23 @@ const Radio = ({data}) => {
         <View>
             {data && data.map((item) => (
                 <View key={item.id}>
-                    <TouchableOpacity key={item.id} onPress={() => setRadioSelected(item.id)} style={styles.form}>
+                    <TouchableOpacity
+                        key={item.id}
+                        onPress={() => {
+                            setRadioSelected(item.id);
+                            let value = result.filter((value) => {
+                                return value.instrument !== instrument.id
+                            });
+                            value.push({
+                                instrument: instrument.id,
+                                name: instrument.name,
+                                indicator: item,
+                            });
+                            setResult(value);
+                            console.log(item);
+                        }}
+                        style={styles.form}
+                    >
                         <View style={styles.radio}>
                             {radioSelected === item.id && (
                                 <View style={styles.radioSelected}/>

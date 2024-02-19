@@ -1,15 +1,16 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {useState} from "react";
-import ArrowRight from "../../images/icon-arrow-right.png";
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {useEffect, useState} from "react";
 import Radio from "../Radio";
-
-const Accordion = ({navigation, data}) => {
+const Accordion = ({navigation, data, result, setResult}) => {
     const [showID, setShowID] = useState(1);
     const styles = StyleSheet.create({
         container: {
             flex: 1
         }
     });
+    useEffect(() => {
+        console.log(data)
+    }, []);
     const content = StyleSheet.create({
         container: {
             padding: 20
@@ -90,9 +91,7 @@ const Accordion = ({navigation, data}) => {
                         <TouchableOpacity onPress={() => setShowID(item.id)} style={content.box}>
                             <View style={content.boxContent}>
                                 <View style={content.boxTextOpen}>
-                                    <Text
-                                        style={{fontWeight: 'bold', fontSize: 20, color: "#161D6F"}}>{item.name}</Text>
-                                    <Text style={{fontSize: 18, color: "#161D6F"}}>Rencana Pembelajaran</Text>
+                                    <Text style={{fontWeight: 'bold', fontSize: 20, color: "#161D6F"}}>POIN {item.name}{item.sub}</Text>
                                 </View>
                             </View>
                             <TouchableOpacity style={content.boxButton}
@@ -115,8 +114,7 @@ const Accordion = ({navigation, data}) => {
                                                 fontWeight: 'bold',
                                                 fontSize: 20,
                                                 color: "#161D6F"
-                                            }}>{item.name}</Text>
-                                            <Text style={{fontSize: 18, color: "#161D6F"}}>Rencana Pembelajaran</Text>
+                                            }}>POIN {item.name}{item.sub}</Text>
                                         </View>
                                     </View>
                                     <TouchableOpacity style={content.boxButtonOpen}
@@ -145,7 +143,16 @@ const Accordion = ({navigation, data}) => {
                                     </View>
                                 </View>
                                 <View style={content.boxTextContentOpen}>
-                                    <Radio data={item.indicator}/>
+                                    <Radio
+                                        data={item.indicators}
+                                        instrument={{
+                                            id: item.id,
+                                            name: item.name
+                                        }}
+                                        result={result}
+                                        setResult={setResult}
+
+                                    />
                                 </View>
                             </View>
                             <View style={content.open}>
@@ -161,7 +168,7 @@ const Accordion = ({navigation, data}) => {
                                     </View>
                                 </View>
                                 <View style={content.boxTextContentOpen}>
-                                    <Text style={{fontSize: 18, color: "#161D6F"}}>{item.desc}</Text>
+                                    <Text style={{fontSize: 18, color: "#161D6F"}}></Text>
                                 </View>
                             </View>
                         </View>

@@ -1,9 +1,13 @@
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ActivityIndicator, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import IconUser from "../../images/IconUserDefault.png";
 import IconTrash from "../../images/IconTrash.png";
 import Header from "../../layouts/Header";
+import {useContext, useEffect, useState} from "react";
+import {UserContext} from "../UserScreen/UserContext";
+import {actionType, Dispatch} from "../../reducer";
 
 const TeacherScreen = ({navigation}) => {
+    const user = useContext(UserContext);
     const styles = StyleSheet.create({
         container: {
             flex: 1
@@ -66,23 +70,12 @@ const TeacherScreen = ({navigation}) => {
             justifyContent: 'center'
         }
     });
-    const teachers = [
-        {
-            id: 1,
-            name: 'Muhammad Arif M., S.Pd.',
-            subject: 'Sejarah'
-        },
-        {
-            id: 2,
-            name: 'Eka Maftukhatul K., S.Pd.',
-            subject: 'Geografi'
-        },
-        {
-            id: 3,
-            name: 'Eli Astuti, S.Hum.',
-            subject: 'Bahasa Indonesia'
-        }
-    ];
+    const [reload, setReload] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [teachers, setTeachers] = useState([]);
+    useEffect(() => {
+        reload && Dispatch(actionType.TEACHER_GET, {setData: setTeachers}, {user: user.id}).then(() => setReload(false));
+    }, [reload]);
     return (
         <View style={styles.container}>
             <Header
@@ -92,7 +85,7 @@ const TeacherScreen = ({navigation}) => {
                 subtitle="Anda dapat menambah, mengubah & menghapus data guru"
             />
             <TouchableOpacity
-                onPress = {() => navigation.goBack('TeacherAddScreen')}
+                onPress = {() => navigation.replace('TeacherAddScreen')}
                 style={styles.formButton}>
                 <Text style={styles.formButtonLabel}>TAMBAH GURU</Text>
             </TouchableOpacity>
@@ -108,8 +101,21 @@ const TeacherScreen = ({navigation}) => {
                                 <Text style={{fontSize: 18, color: "#161D6F"}}>{teacher.subject}</Text>
                             </View>
                         </View>
-                        <TouchableOpacity style={content.boxButton}>
-                            <Image source={IconTrash} style={{width: 25, height: 30}}/>
+                        <TouchableOpacity
+                            style={content.boxButton}
+                            onPress={() => {
+                                Dispatch(actionType.TEACHER_DELETE, {
+                                    id: teacher.id,
+                                    setLoading: setLoading,
+                                    setReload: setReload
+                                }).then();
+                            }}
+                        >
+                            {
+                                loading
+                                    ? <ActivityIndicator size="large"/>
+                                    : <Image source={IconTrash} style={{width: 25, height: 30}}/>
+                            }
                         </TouchableOpacity>
                     </View>
                 ))}

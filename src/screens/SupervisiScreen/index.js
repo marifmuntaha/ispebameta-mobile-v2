@@ -1,11 +1,12 @@
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Header from "../../layouts/Header";
 import UserIconDefault from "../../images/IconUserDefault.png";
-import IconTrash from "../../images/IconTrash.png";
 import ArrowRight from "../../images/icon-arrow-right.png";
-import React from "react";
-
+import React, {useContext, useEffect, useState} from "react";
+import {UserContext} from "../UserScreen/UserContext";
+import {actionType, Dispatch} from "../../reducer";
 const SupervisiScreen = ({navigation}) => {
+    const user = useContext(UserContext);
     const styles = StyleSheet.create({
         container: {
             flex: 1
@@ -54,37 +55,14 @@ const SupervisiScreen = ({navigation}) => {
             justifyContent: 'center'
         }
     });
-    const teachers = [
-        {
-            id: 1,
-            name: 'Muhammad Arif M., S.Pd.',
-            subject: 'Sejarah'
-        },
-        {
-            id: 2,
-            name: 'Eka Maftukhatul K., S.Pd.',
-            subject: 'Geografi'
-        },
-        {
-            id: 3,
-            name: 'Eli Astuti, S.Hum.',
-            subject: 'Bahasa Indonesia'
-        }
-    ];
-    const aspects = [
-        {
-            id: 1,
-            name: 'Rencana Pembelajaran'
-        },
-        {
-            id: 2,
-            name: 'Pelaksanaan Pembelajaran'
-        },
-        {
-            id: 3,
-            name: 'Evaluasi Pembelajaran'
-        }
-    ]
+    const [teachers, setTeachers] = useState([]);
+    const [aspects, setAspects] = useState([]);
+    useEffect(() => {
+        Dispatch(actionType.TEACHER_GET, {setData: setTeachers}, {user: user.id}).then()
+        Dispatch(actionType.ASPECT_GET, {
+            setData: setAspects,
+        }).then()
+    }, []);
     return (
         <View style={styles.container}>
             <Header
@@ -107,7 +85,14 @@ const SupervisiScreen = ({navigation}) => {
                                         <Text style={{fontSize: 18, color: "#161D6F"}}>{aspect.name}</Text>
                                     </View>
                                 </View>
-                                <TouchableOpacity style={content.boxButton} onPress={() => navigation.replace('EvaluationScreen')}>
+                                <TouchableOpacity
+                                    style={content.boxButton}
+                                    onPress={() => {
+                                        navigation.navigate('EvaluationScreen', {
+                                            aspectID: aspect.id,
+                                            teacherID: teacher.id
+                                        })
+                                    }}>
                                     <Image source={ArrowRight} style={{width: 20, height: 2}}/>
                                 </TouchableOpacity>
                             </View>

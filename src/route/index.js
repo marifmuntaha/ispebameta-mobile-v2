@@ -9,65 +9,80 @@ import TeacherAddScreen from "../screens/TeacherScreen/Add"
 import SupervisiScreen from "../screens/SupervisiScreen";
 import EvaluationScreen from "../screens/SupervisiScreen/EvaluationScreen";
 import ReportScreen from "../screens/ReportScreen";
+import {useEffect, useState} from "react";
+import {actionType, Dispatch} from "../reducer";
+import {UserContext} from "../screens/UserScreen/UserContext";
 
-const Stack = createNativeStackNavigator();
+const Route = () => {
+    const Stack = createNativeStackNavigator();
+    const [loading, setLoading] = useState(true);
+    const [auth, setAuth] = useState(false);
+    const [user, setUser] = useState({});
+    useEffect(() => {
+        Dispatch(actionType.AUTH_INFO, {
+            setData: setUser,
+            setAuth: setAuth
+        }).then(() => setLoading(false));
+    },[]);
+    return !loading && (
+        <UserContext.Provider value={user}>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName={auth ? 'DashboardScreen' : 'LoginScreen'}>
+                    <Stack.Screen
+                        name="DashboardScreen"
+                        component={DashboardScreen}
+                        options={{headerShown: false}}
+                        initialParams={user}
 
-function Route() {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="LoginScreen">
-                <Stack.Screen
-                    name="LoginScreen"
-                    component={LoginScreen}
-                    options={{headerShown: false}}
-                />
-                <Stack.Screen
-                    name="RegisterScreen"
-                    component={RegisterScreen}
-                    options={{headerShown: false}}
-                />
-                <Stack.Screen
-                    name="DashboardScreen"
-                    component={DashboardScreen}
-                    options={{headerShown: false}}
-                />
-                <Stack.Screen
-                    name="TeacherScreen"
-                    component={TeacherScreen}
-                    options={{
-                        headerShown: false
-                }}
-                />
-                <Stack.Screen
-                    name="TeacherAddScreen"
-                    component={TeacherAddScreen}
-                    options={{
-                        headerShown: false
-                    }}
-                />
-                <Stack.Screen
-                    name="SupervisiScreen"
-                    component={SupervisiScreen}
-                    options={{
-                        headerShown: false
-                    }}
-                />
-                <Stack.Screen
-                    name="EvaluationScreen"
-                    component={EvaluationScreen}
-                    options={{
-                        headerShown: false
-                    }}
-                />
-                <Stack.Screen
-                    name="ReportScreen"
-                    component={ReportScreen}
-                    options={{
-                        headerShown: false
-                    }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+                    />
+                    <Stack.Screen
+                        name="TeacherScreen"
+                        component={TeacherScreen}
+                        options={{
+                            headerShown: false
+                        }}
+                    />
+                    <Stack.Screen
+                        name="TeacherAddScreen"
+                        component={TeacherAddScreen}
+                        options={{
+                            headerShown: false
+                        }}
+                    />
+                    <Stack.Screen
+                        name="SupervisiScreen"
+                        component={SupervisiScreen}
+                        options={{
+                            headerShown: false
+                        }}
+                    />
+                    <Stack.Screen
+                        name="EvaluationScreen"
+                        component={EvaluationScreen}
+                        options={{
+                            headerShown: false
+                        }}
+                    />
+                    <Stack.Screen
+                        name="ReportScreen"
+                        component={ReportScreen}
+                        options={{
+                            headerShown: false
+                        }}
+                    />
+                    <Stack.Screen
+                        name="LoginScreen"
+                        component={LoginScreen}
+                        options={{headerShown: false}}
+                    />
+                    <Stack.Screen
+                        name="RegisterScreen"
+                        component={RegisterScreen}
+                        options={{headerShown: false}}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </UserContext.Provider>
     );
 }
 export default Route;
