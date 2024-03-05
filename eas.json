@@ -2,9 +2,9 @@
   "build": {
     "preview": {
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "image": "/src/images"
       },
-      "image": "/src/images"
     },
     "preview2": {
       "android": {
