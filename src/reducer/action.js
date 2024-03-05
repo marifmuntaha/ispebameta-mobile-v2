@@ -7,7 +7,6 @@ export const AuthLogin = async (url, state) => {
     return await axios.post(url, state.formData).then(resp => {
         SecureStore.setItem('token', resp.data.result.token);
         state.setLoading && state.setLoading(false);
-        Alert.alert('Sukses', resp.data.message);
         return resp.data.result;
     }).catch(error => {
         handleError(error);
@@ -20,8 +19,8 @@ export const AuthInfo = async (url, state) => {
         state.setAuth(true);
         return resp.data.result;
     }).catch(error => {
-        handleError(error);
         state.setAuth(false);
+        // handleError(error);
     })
 }
 

@@ -31,54 +31,43 @@ const Route = () => {
                     <Stack.Screen
                         name="DashboardScreen"
                         component={DashboardScreen}
-                        options={{headerShown: false}}
+                        options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
                         initialParams={user}
-
                     />
                     <Stack.Screen
                         name="TeacherScreen"
                         component={TeacherScreen}
-                        options={{
-                            headerShown: false
-                        }}
+                        options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
                     />
                     <Stack.Screen
                         name="TeacherAddScreen"
                         component={TeacherAddScreen}
-                        options={{
-                            headerShown: false
-                        }}
+                        options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
                     />
                     <Stack.Screen
                         name="SupervisiScreen"
                         component={SupervisiScreen}
-                        options={{
-                            headerShown: false
-                        }}
+                        options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
                     />
                     <Stack.Screen
                         name="EvaluationScreen"
                         component={EvaluationScreen}
-                        options={{
-                            headerShown: false
-                        }}
+                        options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
                     />
                     <Stack.Screen
                         name="ReportScreen"
                         component={ReportScreen}
-                        options={{
-                            headerShown: false
-                        }}
+                        options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
                     />
                     <Stack.Screen
                         name="LoginScreen"
                         component={LoginScreen}
-                        options={{headerShown: false}}
+                        options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
                     />
                     <Stack.Screen
                         name="RegisterScreen"
                         component={RegisterScreen}
-                        options={{headerShown: false}}
+                        options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

@@ -168,7 +168,7 @@ const Accordion = ({navigation, data, result, setResult}) => {
                                     </View>
                                 </View>
                                 <View style={content.boxTextContentOpen}>
-                                    <Text style={{fontSize: 18, color: "#161D6F"}}></Text>
+                                    <Text style={{fontSize: 18, color: "#161D6F"}}>{data.reference}</Text>
                                 </View>
                             </View>
                         </View>
