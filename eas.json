@@ -3,7 +3,7 @@
     "preview": {
       "android": {
         "buildType": "apk",
-        "image": "/src/images"
+        "image": "images"
       },
     },
     "preview2": {
