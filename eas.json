@@ -3,9 +3,6 @@
     "preview": {
       "android": {
         "buildType": "apk"
-      },
-      "env": {
-        "EXPO_PUBLIC_API_URL": "https://ispebameta.limitasi.my.id/api"
       }
     },
     "preview2": {
