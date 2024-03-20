@@ -6,7 +6,7 @@ import IconPencilDefault from "../../images/IconPencilDefault.png";
 import IconFileDefault from "../../images/IconFileDefault.png";
 import IconQuestion from "../../images/IconQuestion.png";
 import Dimension from "../../layouts/Dimention";
-import {useContext, useEffect} from "react";
+import {useContext} from "react";
 import {UserContext} from "../UserScreen/UserContext";
 const DashboardScreen = ({navigation}) => {
     const styles = StyleSheet.create({

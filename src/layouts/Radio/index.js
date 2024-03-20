@@ -1,7 +1,7 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useState} from "react";
 
-const Radio = ({data, instrument, result, setResult}) => {
+const Radio = ({data, instrument, result, setResult, setReference, code, setCode}) => {
     const styles = StyleSheet.create({
         form: {
             flexDirection: "row",
@@ -48,7 +48,8 @@ const Radio = ({data, instrument, result, setResult}) => {
                                 indicator: item,
                             });
                             setResult(value);
-                            console.log(item);
+                            setReference(item.reference);
+                            setCode(value.push(item));
                         }}
                         style={styles.form}
                     >

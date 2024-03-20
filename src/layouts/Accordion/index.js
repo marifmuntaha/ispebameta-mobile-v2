@@ -1,16 +1,16 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useEffect, useState} from "react";
 import Radio from "../Radio";
+
 const Accordion = ({navigation, data, result, setResult}) => {
     const [showID, setShowID] = useState(1);
+    const [reference, setReference] = useState('')
+    const [code, setCode] = useState([]);
     const styles = StyleSheet.create({
         container: {
             flex: 1
         }
     });
-    useEffect(() => {
-        console.log(data)
-    }, []);
     const content = StyleSheet.create({
         container: {
             padding: 20
@@ -83,25 +83,32 @@ const Accordion = ({navigation, data, result, setResult}) => {
             justifyContent: 'center'
         }
     });
+    useEffect(() => {
+        console.log(result);
+    }, [result]);
     return (
         <View style={styles.container}>
             {data && data.map((item) => (
                 <View key={item.id}>
                     {item.id !== showID && (
-                        <TouchableOpacity onPress={() => setShowID(item.id)} style={content.box}>
+                        <TouchableOpacity style={content.box} onPress={() => {
+                            setShowID(item.id);
+                            setReference('');
+                        }}>
                             <View style={content.boxContent}>
                                 <View style={content.boxTextOpen}>
-                                    <Text style={{fontWeight: 'bold', fontSize: 20, color: "#161D6F"}}>POIN {item.name}{item.sub}</Text>
+                                    <Text style={{fontWeight: 'bold', fontSize: 20, color: "#161D6F"}}>
+                                        POIN {item.name}{item.sub}
+                                    </Text>
                                 </View>
                             </View>
-                            <TouchableOpacity style={content.boxButton}
-                                              onPress={() => navigation.replace('EvaluationScreen')}>
+                            <View style={content.boxButton}>
                                 <Text style={{
                                     fontWeight: 'bold',
                                     fontSize: 25,
                                     color: '#07F136'
-                                }}>A</Text>
-                            </TouchableOpacity>
+                                }}>{code.id === item.id ? code.code : ''}</Text>
+                            </View>
                         </TouchableOpacity>
                     )}
                     {item.id === showID && (
@@ -117,14 +124,13 @@ const Accordion = ({navigation, data, result, setResult}) => {
                                             }}>POIN {item.name}{item.sub}</Text>
                                         </View>
                                     </View>
-                                    <TouchableOpacity style={content.boxButtonOpen}
-                                                      onPress={() => navigation.replace('EvaluationScreen')}>
+                                    <View style={content.boxButtonOpen}>
                                         <Text style={{
                                             fontWeight: 'bold',
                                             fontSize: 25,
                                             color: '#07F136'
                                         }}>A</Text>
-                                    </TouchableOpacity>
+                                    </View>
                                 </View>
                                 <View style={content.boxTextContentOpen}>
                                     <Text style={{fontSize: 18, color: "#161D6F"}}>{item.desc}</Text>
@@ -149,8 +155,11 @@ const Accordion = ({navigation, data, result, setResult}) => {
                                             id: item.id,
                                             name: item.name
                                         }}
+                                        setReference={setReference}
                                         result={result}
                                         setResult={setResult}
+                                        code={code}
+                                        setCode={setCode}
 
                                     />
                                 </View>
@@ -168,7 +177,7 @@ const Accordion = ({navigation, data, result, setResult}) => {
                                     </View>
                                 </View>
                                 <View style={content.boxTextContentOpen}>
-                                    <Text style={{fontSize: 18, color: "#161D6F"}}>{data.reference}</Text>
+                                    <Text style={{fontSize: 18, color: "#161D6F"}}>{reference}</Text>
                                 </View>
                             </View>
                         </View>
