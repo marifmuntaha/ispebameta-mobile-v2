@@ -2,16 +2,14 @@ import axios from "axios";
 import handleError from "../utils/handleError";
 import {Alert} from "react-native";
 import * as SecureStore from "expo-secure-store";
+import Toast from "react-native-root-toast";
 export const AuthLogin = async (url, state) => {
     state.setLoading && state.setLoading(true);
     return await axios.post(url, state.formData).then(resp => {
         SecureStore.setItem('token', resp.data.result.token);
         state.setLoading && state.setLoading(false);
         return resp.data.result;
-    }).catch(error => {
-        handleError(error);
-        state.setLoading && state.setLoading(false);
-    })
+    });
 }
 export const AuthInfo = async (url, state) => {
     return await axios.get(url).then(resp => {
@@ -35,13 +33,10 @@ export const getData = async (url, state, params) => {
 export const storeData = async (url, state) => {
     state.setLoading && state.setLoading(true);
     return await axios.post(url, state.formData).then(resp => {
-        Alert.alert('Sukses', resp.data.message);
+        Toast.show(resp.data.message, {duration: 2000});
         state.setLoading && state.setLoading(false);
         return resp.data.result
-    }).catch(error => {
-        handleError(error);
-        state.setLoading && state.setLoading(false);
-    })
+    });
 }
 export const updateData = async (url, state) => {
     state.setLoading && state.setLoading(true);
