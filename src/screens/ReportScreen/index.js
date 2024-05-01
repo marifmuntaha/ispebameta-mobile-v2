@@ -2,8 +2,13 @@ import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react
 import Header from "../../layouts/Header";
 import UserIconDefault from "../../images/IconUserDefault.png";
 import IconPrinter from "../../images/IconPrinter.png";
+import {useContext, useEffect, useState} from "react";
+import {actionType, Dispatch} from "../../reducer";
+import {UserContext} from "../UserScreen/UserContext";
 
 const ReportScreen = ({navigation}) => {
+    const user = useContext(UserContext);
+    const [reports, setReports] = useState([]);
     const styles = StyleSheet.create({
         container: {
             flex: 1
@@ -52,11 +57,18 @@ const ReportScreen = ({navigation}) => {
             justifyContent: 'center'
         }
     });
-    const reports = [
-        {id: 1, name: 'Eka Maftukhatul K., S.Pd.', aspect: 'Rencana Pembelajaran'},
-        {id: 2, name: 'Muhammad Arif M., S.Pd.', aspect: 'Rencana Pembelajaran'},
-        {id: 3, name: 'Eli Astuti., S.Hum.', aspect: 'Rencana Pembelajaran'}
-    ]
+    // const reports = [
+    //     {id: 1, name: 'Eka Maftukhatul K., S.Pd.', aspect: 'Rencana Pembelajaran'},
+    //     {id: 2, name: 'Muhammad Arif M., S.Pd.', aspect: 'Rencana Pembelajaran'},
+    //     {id: 3, name: 'Eli Astuti., S.Hum.', aspect: 'Rencana Pembelajaran'}
+    // ]
+    useEffect(() => {
+        Dispatch(actionType.EVALUATION_GET, {setData: setReports}, {
+            user: user.id,
+            withTeacher: true,
+            withAspect: true,
+        }).then(resp => console.log(resp));
+    }, []);
     return (
         <View style={styles.container}>
             <Header
@@ -73,8 +85,8 @@ const ReportScreen = ({navigation}) => {
                                 <Image source={UserIconDefault} style={{width: 40, height: 40}}/>
                             </View>
                             <View style={content.boxText}>
-                                <Text style={{fontWeight: 'bold', fontSize: 20, color: "#161D6F"}}>{report.name}</Text>
-                                <Text style={{fontSize: 18, color: "#161D6F"}}>{report.aspect}</Text>
+                                <Text style={{fontWeight: 'bold', fontSize: 20, color: "#161D6F"}}>{report.teacher.name}</Text>
+                                <Text style={{fontSize: 18, color: "#161D6F"}}>{report.aspect.name}</Text>
                             </View>
                         </View>
                         <TouchableOpacity style={content.boxButton} onPress={() => alert('Laporan Dicetak')}>

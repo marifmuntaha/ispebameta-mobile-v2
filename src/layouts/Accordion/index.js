@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import Radio from "../Radio";
 
 const Accordion = ({navigation, data, result, setResult}) => {
-    const [showID, setShowID] = useState(1);
+    const [showID, setShowID] = useState(0);
     const [reference, setReference] = useState('')
     const [code, setCode] = useState([]);
     const styles = StyleSheet.create({
@@ -107,7 +107,7 @@ const Accordion = ({navigation, data, result, setResult}) => {
                                     fontWeight: 'bold',
                                     fontSize: 25,
                                     color: '#07F136'
-                                }}>{code.id === item.id ? code.code : ''}</Text>
+                                }}>A</Text>
                             </View>
                         </TouchableOpacity>
                     )}

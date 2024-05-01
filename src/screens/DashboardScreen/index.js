@@ -6,9 +6,12 @@ import IconPencilDefault from "../../images/IconPencilDefault.png";
 import IconFileDefault from "../../images/IconFileDefault.png";
 import IconQuestion from "../../images/IconQuestion.png";
 import Dimension from "../../layouts/Dimention";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../UserScreen/UserContext";
+import {actionType, Dispatch} from "../../reducer";
 const DashboardScreen = ({navigation}) => {
+    const [teachers, setTeachers] = useState([]);
+    const [reports, setReports] = useState([]);
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -131,6 +134,10 @@ const DashboardScreen = ({navigation}) => {
         }
     })
     const user = useContext(UserContext);
+    useEffect(() => {
+        Dispatch(actionType.TEACHER_GET, {setData: setTeachers}, {user: user.id}).then();
+        Dispatch(actionType.EVALUATION_GET, {setData: setReports}, {user: user.id}).then();
+    }, []);
     return (
         <View style={styles.container}>
             <View style={header.container}>
@@ -150,7 +157,7 @@ const DashboardScreen = ({navigation}) => {
             </View>
             <View style={widget.container}>
                 <View style={widget.box}>
-                    <Text style={widget.boxText}>2 GURU</Text>
+                    <Text style={widget.boxText}>{teachers.length} GURU</Text>
                     <TouchableOpacity
                         onPress = {() => navigation.replace('TeacherScreen')}
                         style={widget.boxButton}>
@@ -158,7 +165,7 @@ const DashboardScreen = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
                 <View style={widget.box}>
-                    <Text style={widget.boxText}>3 LAPORAN</Text>
+                    <Text style={widget.boxText}>{reports.length} LAPORAN</Text>
                     <TouchableOpacity
                         onPress = {() => navigation.replace('ReportScreen')}
                         style={widget.boxButton}>
