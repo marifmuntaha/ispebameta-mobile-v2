@@ -9,16 +9,25 @@ import TeacherAddScreen from "../screens/TeacherScreen/Add"
 import SupervisiScreen from "../screens/SupervisiScreen";
 import EvaluationScreen from "../screens/SupervisiScreen/EvaluationScreen";
 import ReportScreen from "../screens/ReportScreen";
-import {useEffect, useState} from "react";
-import {actionType, Dispatch} from "../reducer";
 import {UserContext} from "../screens/UserScreen/UserContext";
+import UserScreen from "../screens/UserScreen";
 
 const Route = ({auth, user}) => {
     const Stack = createNativeStackNavigator();
-    return auth ? (
+    return (
         <UserContext.Provider value={user}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName='DashboardScreen'>
+                <Stack.Navigator initialRouteName={auth ? "DashboardScreen" : "LoginScreen"}>
+                    <Stack.Screen
+                        name="LoginScreen"
+                        component={LoginScreen}
+                        options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
+                    />
+                    <Stack.Screen
+                        name="RegisterScreen"
+                        component={RegisterScreen}
+                        options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
+                    />
                     <Stack.Screen
                         name="DashboardScreen"
                         component={DashboardScreen}
@@ -50,25 +59,15 @@ const Route = ({auth, user}) => {
                         component={ReportScreen}
                         options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
                     />
+                    <Stack.Screen
+                        name="UserScreen"
+                        component={UserScreen}
+                        options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
+                    />
 
                 </Stack.Navigator>
             </NavigationContainer>
         </UserContext.Provider>
-    ) : (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName='LoginScreen'>
-                <Stack.Screen
-                    name="LoginScreen"
-                    component={LoginScreen}
-                    options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
-                />
-                <Stack.Screen
-                    name="RegisterScreen"
-                    component={RegisterScreen}
-                    options={{headerShown: false, statusBarTranslucent: true, statusBarStyle: 'light'}}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
     )
 }
 export default Route;

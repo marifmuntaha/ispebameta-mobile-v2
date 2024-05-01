@@ -5,6 +5,7 @@ import IconPrinter from "../../images/IconPrinter.png";
 import {useContext, useEffect, useState} from "react";
 import {actionType, Dispatch} from "../../reducer";
 import {UserContext} from "../UserScreen/UserContext";
+import * as WebBrowser from 'expo-web-browser';
 
 const ReportScreen = ({navigation}) => {
     const user = useContext(UserContext);
@@ -57,11 +58,7 @@ const ReportScreen = ({navigation}) => {
             justifyContent: 'center'
         }
     });
-    // const reports = [
-    //     {id: 1, name: 'Eka Maftukhatul K., S.Pd.', aspect: 'Rencana Pembelajaran'},
-    //     {id: 2, name: 'Muhammad Arif M., S.Pd.', aspect: 'Rencana Pembelajaran'},
-    //     {id: 3, name: 'Eli Astuti., S.Hum.', aspect: 'Rencana Pembelajaran'}
-    // ]
+    const [evaluation, setEvaluation] = useState({});
     useEffect(() => {
         Dispatch(actionType.EVALUATION_GET, {setData: setReports}, {
             user: user.id,
@@ -89,7 +86,20 @@ const ReportScreen = ({navigation}) => {
                                 <Text style={{fontSize: 18, color: "#161D6F"}}>{report.aspect.name}</Text>
                             </View>
                         </View>
-                        <TouchableOpacity style={content.boxButton} onPress={() => alert('Laporan Dicetak')}>
+                        <TouchableOpacity style={content.boxButton} onPress={() => {
+                            setEvaluation({
+                                id: report.id,
+                                user: report.user,
+                                teacher: report.teacher.id,
+                                aspect: report.aspect.id,
+                                finish: 0,
+                                result: report.result,
+                                feedback: report.feedback,
+                            });
+                            Dispatch(actionType.EVALUATION_PRINT, {formData: evaluation}).then(resp => {
+                                WebBrowser.openBrowserAsync(resp).then()
+                            });
+                        }}>
                             <Image source={IconPrinter} style={{width: 20, height: 20}}/>
                         </TouchableOpacity>
                     </View>

@@ -147,7 +147,9 @@ const DashboardScreen = ({navigation}) => {
                         <Text style={header.navbarTitleText}>Dashboard</Text>
                     </View>
                     <View style={header.navbarUser}>
-                        <Image source={IconUserWhite} style={header.navbarUserIcon}/>
+                        <TouchableOpacity onPress={() => navigation.replace("UserScreen")}>
+                            <Image source={IconUserWhite} style={header.navbarUserIcon}/>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={header.greeting}>

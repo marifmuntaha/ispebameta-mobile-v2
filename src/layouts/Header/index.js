@@ -61,7 +61,9 @@ const Header = ({navigation, backTo, title, subtitle}) => {
                     <Text style={header.navbarTitleText}>{title}</Text>
                 </View>
                 <View style={header.navbarUser}>
-                    <Image source={UserIcon} style={header.navbarUserIcon}/>
+                    <TouchableOpacity onPress={() => navigation.replace("UserScreen")}>
+                        <Image source={UserIcon} style={header.navbarUserIcon}/>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={header.greeting}>
