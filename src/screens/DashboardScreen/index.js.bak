@@ -9,7 +9,7 @@ import Dimension from "../../layouts/Dimention";
 import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../UserScreen/UserContext";
 import {actionType, Dispatch} from "../../reducer";
-const DashboardScreen = ({navigation}) => {
+const DashboardScreen = () => {
     const [teachers, setTeachers] = useState([]);
     const [reports, setReports] = useState([]);
     const styles = StyleSheet.create({
@@ -138,81 +138,84 @@ const DashboardScreen = ({navigation}) => {
         Dispatch(actionType.TEACHER_GET, {setData: setTeachers}, {user: user.id}).then();
         Dispatch(actionType.EVALUATION_GET, {setData: setReports}, {user: user.id}).then();
     }, []);
+    // return (
+    //     <View style={styles.container}>
+    //         <View style={header.container}>
+    //             <View style={header.navbar}>
+    //                 <View style={header.navbarTitle}>
+    //                     <Image source={IconLogo} style={header.navbarTitleLogo}/>
+    //                     <Text style={header.navbarTitleText}>Dashboard</Text>
+    //                 </View>
+    //                 <View style={header.navbarUser}>
+    //                     <TouchableOpacity onPress={() => navigation.replace("UserScreen")}>
+    //                         <Image source={IconUserWhite} style={header.navbarUserIcon}/>
+    //                     </TouchableOpacity>
+    //                 </View>
+    //             </View>
+    //             <View style={header.greeting}>
+    //                 <Text style={header.greetingText}>Selamat Datang</Text>
+    //                 <Text style={header.greetingText}>{user.name}</Text>
+    //             </View>
+    //         </View>
+    //         <View style={widget.container}>
+    //             <View style={widget.box}>
+    //                 <Text style={widget.boxText}>{teachers.length} GURU</Text>
+    //                 <TouchableOpacity
+    //                     onPress = {() => navigation.replace('TeacherScreen')}
+    //                     style={widget.boxButton}>
+    //                     <Text style={widget.boxButtonLabel}>LIHAT</Text>
+    //                 </TouchableOpacity>
+    //             </View>
+    //             <View style={widget.box}>
+    //                 <Text style={widget.boxText}>{reports.length} LAPORAN</Text>
+    //                 <TouchableOpacity
+    //                     onPress = {() => navigation.replace('ReportScreen')}
+    //                     style={widget.boxButton}>
+    //                     <Text style={widget.boxButtonLabel}>LIHAT</Text>
+    //                 </TouchableOpacity>
+    //             </View>
+    //         </View>
+    //         <ScrollView>
+    //             <Text style={styles.mainmenu}>MAINMENU</Text>
+    //             <View style={mainmenu.container}>
+    //                 <TouchableOpacity
+    //                     onPress = {() => navigation.replace('TeacherScreen')}
+    //                     style={mainmenu.boxButton}>
+    //                     <Image source={IconUserDefault} style={mainmenu.boxButtonImage}/>
+    //                     <Text style={widget.boxButtonLabel}>DATA GURU</Text>
+    //                 </TouchableOpacity>
+    //                 <TouchableOpacity
+    //                     onPress = {() => navigation.replace('SupervisiScreen')}
+    //                     style={mainmenu.boxButton}>
+    //                     <Image source={IconPencilDefault} style={mainmenu.boxButtonImage}/>
+    //                     <Text style={widget.boxButtonLabel}>PENILAIAN</Text>
+    //                 </TouchableOpacity>
+    //             </View>
+    //             <View style={mainmenu.container}>
+    //                 <TouchableOpacity
+    //                     onPress = {() => navigation.replace('ReportScreen')}
+    //                     style={mainmenu.boxButton}>
+    //                     <Image source={IconFileDefault} style={{
+    //                         height: 90,
+    //                         width: 66
+    //                     }}/>
+    //                     <Text style={widget.boxButtonLabel}>LAPORAN</Text>
+    //                 </TouchableOpacity>
+    //                 <TouchableOpacity
+    //                     onPress = {() => alert('Halaman Tentang')}
+    //                     style={mainmenu.boxButton}>
+    //                     <Image source={IconQuestion} style={{
+    //                         width: 58,
+    //                         height: 90
+    //                     }}/>
+    //                     <Text style={widget.boxButtonLabel}>TENTANG</Text>
+    //                 </TouchableOpacity>
+    //             </View>
+    //         </ScrollView>
+    //     </View>
+    // )
     return (
-        <View style={styles.container}>
-            <View style={header.container}>
-                <View style={header.navbar}>
-                    <View style={header.navbarTitle}>
-                        <Image source={IconLogo} style={header.navbarTitleLogo}/>
-                        <Text style={header.navbarTitleText}>Dashboard</Text>
-                    </View>
-                    <View style={header.navbarUser}>
-                        <TouchableOpacity onPress={() => navigation.replace("UserScreen")}>
-                            <Image source={IconUserWhite} style={header.navbarUserIcon}/>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={header.greeting}>
-                    <Text style={header.greetingText}>Selamat Datang</Text>
-                    <Text style={header.greetingText}>{user.name}</Text>
-                </View>
-            </View>
-            <View style={widget.container}>
-                <View style={widget.box}>
-                    <Text style={widget.boxText}>{teachers.length} GURU</Text>
-                    <TouchableOpacity
-                        onPress = {() => navigation.replace('TeacherScreen')}
-                        style={widget.boxButton}>
-                        <Text style={widget.boxButtonLabel}>LIHAT</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={widget.box}>
-                    <Text style={widget.boxText}>{reports.length} LAPORAN</Text>
-                    <TouchableOpacity
-                        onPress = {() => navigation.replace('ReportScreen')}
-                        style={widget.boxButton}>
-                        <Text style={widget.boxButtonLabel}>LIHAT</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <ScrollView>
-                <Text style={styles.mainmenu}>MAINMENU</Text>
-                <View style={mainmenu.container}>
-                    <TouchableOpacity
-                        onPress = {() => navigation.replace('TeacherScreen')}
-                        style={mainmenu.boxButton}>
-                        <Image source={IconUserDefault} style={mainmenu.boxButtonImage}/>
-                        <Text style={widget.boxButtonLabel}>DATA GURU</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress = {() => navigation.replace('SupervisiScreen')}
-                        style={mainmenu.boxButton}>
-                        <Image source={IconPencilDefault} style={mainmenu.boxButtonImage}/>
-                        <Text style={widget.boxButtonLabel}>PENILAIAN</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={mainmenu.container}>
-                    <TouchableOpacity
-                        onPress = {() => navigation.replace('ReportScreen')}
-                        style={mainmenu.boxButton}>
-                        <Image source={IconFileDefault} style={{
-                            height: 90,
-                            width: 66
-                        }}/>
-                        <Text style={widget.boxButtonLabel}>LAPORAN</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress = {() => alert('Halaman Tentang')}
-                        style={mainmenu.boxButton}>
-                        <Image source={IconQuestion} style={{
-                            width: 58,
-                            height: 90
-                        }}/>
-                        <Text style={widget.boxButtonLabel}>TENTANG</Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
-        </View>
+        <Text>Dashboard</Text>
     )
 }
 export default DashboardScreen;

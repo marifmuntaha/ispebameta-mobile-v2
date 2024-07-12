@@ -1,93 +1,35 @@
+import IconLogo from '../../images/IconLogo.png';
 import {
     ActivityIndicator,
     Image,
-    KeyboardAvoidingView, Platform,
-    ScrollView,
+    Platform,
     StyleSheet,
     Text,
     TextInput, ToastAndroid,
     TouchableOpacity,
     View
 } from "react-native";
-import IconLogo from '../../images/IconLogo.png';
-import {actionType, Dispatch} from "../../reducer";
 import {useState} from "react";
-import Toast from 'react-native-root-toast';
+import {
+    Alert,
+    AlertText,
+    Box, Button, ButtonText,
+    Center,
+    FormControl,
+    FormControlLabel,
+    FormControlLabelText,
+    Heading, Input, InputField, Spinner, KeyboardAvoidingView, ScrollView
+} from "@gluestack-ui/themed";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigation} from "@react-navigation/native";
+import {signupUser} from "../../redux/auth/actions";
 
-const RegisterScreen = ({navigation}) => {
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            backgroundColor: '#161D6F',
-        },
-        headerBlock: {
-            alignItems: 'center',
-            justifyContent: 'center'
-        },
-        headerLogo: {
-            marginTop: 70,
-            marginBottom: 10
-        },
-        headerTitle: {
-            fontWeight: "bold",
-            fontSize: 30,
-            color: "#fff",
-        },
-        headerSubtitle: {
-            width: '80%',
-            textAlign: 'center',
-            fontSize: 20,
-            color: "#fff",
-            marginBottom: 40,
-        },
-        formBlock: {
-            width: "80%",
-            alignSelf: 'center'
-        },
-        formInputLabel: {
-            fontSize: 18,
-            color: "white",
-            marginBottom: 5
-        },
-        formInput: {
-            backgroundColor: "#FFF",
-            borderRadius: 15,
-            height: 60,
-            marginBottom: 20,
-            justifyContent: "center",
-            padding: 20
-        },
-        formInputPlaceholder: {
-            fontSize: 18,
-            height: 60,
-            color: "black"
-        },
-        formButtonLogin: {
-            backgroundColor: "#FFC14F",
-            borderRadius: 15,
-            height: 60,
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: 20,
-        },
-        formButtonRegister: {
-            backgroundColor: "#161D6F",
-            borderRadius: 15,
-            borderWidth: 1,
-            borderColor: "white",
-            height: 60,
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: 20,
-            marginBottom: 20
-        },
-        formButtonLabel: {
-            fontWeight: 'bold',
-            color: "white",
-            fontSize: 18
-        }
-    });
-    const [loading, setLoading] = useState(false);
+const RegisterScreen = () => {
+    const dispatch = useDispatch();
+    const selector = useSelector(state => state.auth);
+    const {success, loading, error} = selector;
+    const navigation = useNavigation();
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -100,102 +42,136 @@ const RegisterScreen = ({navigation}) => {
     });
     return (
         <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.container}>
+            behavior={Platform.OS === "ios" ? "height" : "height"}
+            style={{flex: 1, zIndex: 999}}
+        >
             <ScrollView>
-                <View style={styles.headerBlock}>
-                    <Image source={IconLogo} style={styles.headerLogo}/>
-                    <Text style={styles.headerTitle}>PENDAFTARAN</Text>
-                    <Text style={styles.headerSubtitle}>Silahkan melakukan pendaftaran untuk memulai menggunakan
-                        ISPEBAMETA</Text>
-                </View>
-                <View style={styles.formBlock}>
-                    <Text style={styles.formInputLabel}>Nama Lengkap</Text>
-                    <View style={styles.formInput}>
-                        <TextInput
-                            style={styles.formInputPlaceholder}
-                            placeholder="Masukkan Nama Lengkap"
-                            placeholderTextColor="#929090"
-                            onChangeText={(e) => setFormData({...formData, name: e})}
-                        />
-                    </View>
-                    <Text style={styles.formInputLabel}>Alamat Email</Text>
-                    <View style={styles.formInput}>
-                        <TextInput
-                            style={styles.formInputPlaceholder}
-                            placeholder="Masukkan Alamat Email"
-                            placeholderTextColor="#929090"
-                            onChangeText={(e) => setFormData({...formData, email: e})}
-                        />
-                    </View>
-                    <Text style={styles.formInputLabel}>Kata Sandi</Text>
-                    <View style={styles.formInput}>
-                        <TextInput
-                            style={styles.formInputPlaceholder}
-                            placeholder="Masukkan Kata Sandi"
-                            placeholderTextColor="#929090"
-                            onChangeText={(e) => setFormData({...formData, password: e})}
-                        />
-                    </View>
-                    <Text style={styles.formInputLabel}>Ulangi Sandi</Text>
-                    <View style={styles.formInput}>
-                        <TextInput
-                            style={styles.formInputPlaceholder}
-                            placeholder="Ulangi Kata Sandi"
-                            placeholderTextColor="#929090"
-                            onChangeText={(e) => setFormData({...formData, password_confirmation: e})}
-                        />
-                    </View>
-                    <Text style={styles.formInputLabel}>NIP</Text>
-                    <View style={styles.formInput}>
-                        <TextInput
-                            style={styles.formInputPlaceholder}
-                            placeholder="Masukkan NIP"
-                            placeholderTextColor="#929090"
-                            onChangeText={(e) => setFormData({...formData, nip: e})}
-                        />
-                    </View>
-                    <Text style={styles.formInputLabel}>Nama Lembaga</Text>
-                    <View style={styles.formInput}>
-                        <TextInput
-                            style={styles.formInputPlaceholder}
-                            placeholder="Masukkan Nama Lembaga"
-                            placeholderTextColor="#929090"
-                            onChangeText={(e) => setFormData({...formData, institution: e})}
-                        />
-                    </View>
-                    <Text style={styles.formInputLabel}>Jabatan</Text>
-                    <View style={styles.formInput}>
-                        <TextInput
-                            style={styles.formInputPlaceholder}
-                            placeholder="Masukkan Jabatan"
-                            placeholderTextColor="#929090"
-                            onChangeText={(e) => setFormData({...formData, position: e})}
-                        />
-                    </View>
-                    <TouchableOpacity
-                        onPress={() => {
-                            Dispatch(actionType.AUTH_REGISTER, {
-                                formData: formData,
-                                setLoading: setLoading
-                            }).then((resp) => {
-                                resp ? navigation.replace('LoginScreen') : null
-                            }).catch(error => {
-                                Toast.show(error.response ? error.response.data.message : error.message, {
-                                    duration: 2000,
-                                });
-                                setLoading(false);
-                            })
-                        }}
-                        style={styles.formButtonLogin}>
-                        <Text style={styles.formButtonLabel}>DAFTAR</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => navigation.replace('LoginScreen')}
-                        style={styles.formButtonRegister}>
-                        <Text style={styles.formButtonLabel}>MASUK</Text>
-                    </TouchableOpacity>
-                </View>
+                <Box bg="#161D6F" p="$5" alignItems='center' h="100%" justifyContent="center">
+                    <Center w="90%" mb="$3">
+                        <Image size="md" source={IconLogo} alt="IconLogo"/>
+                        <Heading size="xl" color="white">PENDAFTARAN</Heading>
+                        <Heading size="sm" color="white">Silahkan melakukan pendaftaran untuk memulai menggunakan
+                            ISPEBAMETA</Heading>
+                    </Center>
+                    {success && (
+                        <Alert minWidth="$80" action="success" variant="solid" mb="$3">
+                            <AlertText>{success}</AlertText>
+                        </Alert>
+                    )}
+                    {error && (
+                        <Alert minWidth="$80" action="error" variant="solid" mb="$3">
+                            <AlertText>{error}</AlertText>
+                        </Alert>
+                    )}
+                    <FormControl minWidth="$80" isRequired={true} mb="$3">
+                        <FormControlLabel mb="$1">
+                            <FormControlLabelText color="white">Nama Lengkap</FormControlLabelText>
+                        </FormControlLabel>
+                        <Input>
+                            <InputField
+                                type="text"
+                                color="white"
+                                value={formData.name}
+                                onChange={(e) => setFormData({...formData, name: e})}
+                            />
+                        </Input>
+                    </FormControl>
+                    <FormControl minWidth="$80" isRequired={true} mb="$3">
+                        <FormControlLabel mb="$1">
+                            <FormControlLabelText color="white">Alamat Email</FormControlLabelText>
+                        </FormControlLabel>
+                        <Input>
+                            <InputField
+                                type="text"
+                                color="white"
+                                value={formData.email}
+                                onChange={(e) => setFormData({...formData, email: e})}
+                            />
+                        </Input>
+                    </FormControl>
+                    <FormControl minWidth="$80" isRequired={true} mb="$3">
+                        <FormControlLabel mb="$1">
+                            <FormControlLabelText color="white">Kata Sandi</FormControlLabelText>
+                        </FormControlLabel>
+                        <Input>
+                            <InputField
+                                type="password"
+                                color="white"
+                                value={formData.password}
+                                onChange={(e) => setFormData({...formData, password: e})}
+                            />
+                        </Input>
+                    </FormControl>
+                    <FormControl minWidth="$80" isRequired={true} mb="$3">
+                        <FormControlLabel mb="$1">
+                            <FormControlLabelText color="white">Ulangi Sandi</FormControlLabelText>
+                        </FormControlLabel>
+                        <Input>
+                            <InputField
+                                type="password"
+                                color="white"
+                                value={formData.password_confirmation}
+                                onChange={(e) => setFormData({...formData, password_confirmation: e})}
+                            />
+                        </Input>
+                    </FormControl>
+                    <FormControl minWidth="$80" isRequired={true} mb="$3">
+                        <FormControlLabel mb="$1">
+                            <FormControlLabelText color="white">NIP</FormControlLabelText>
+                        </FormControlLabel>
+                        <Input>
+                            <InputField
+                                type="text"
+                                color="white"
+                                value={formData.nip}
+                                onChange={(e) => setFormData({...formData, nip: e})}
+                            />
+                        </Input>
+                    </FormControl>
+                    <FormControl minWidth="$80" isRequired={true} mb="$3">
+                        <FormControlLabel mb="$1">
+                            <FormControlLabelText color="white">Nama Lembaga</FormControlLabelText>
+                        </FormControlLabel>
+                        <Input>
+                            <InputField
+                                type="text"
+                                color="white"
+                                value={formData.institution}
+                                onChange={(e) => setFormData({...formData, institution: e})}
+                            />
+                        </Input>
+                    </FormControl>
+                    <FormControl minWidth="$80" isRequired={true} mb="$3">
+                        <FormControlLabel mb="$1">
+                            <FormControlLabelText color="white">Jabatan</FormControlLabelText>
+                        </FormControlLabel>
+                        <Input>
+                            <InputField
+                                type="text"
+                                color="white"
+                                value={formData.position}
+                                onChange={(e) => setFormData({...formData, position: e})}
+                            />
+                        </Input>
+                    </FormControl>
+                    <Button
+                        mt="$3"
+                        minWidth="$80"
+                        variant="solid"
+                        bg="$warning400"
+                        onPress={() => dispatch(signupUser(formData))}
+                    >
+                        <ButtonText>{loading ? <Spinner size="small" color="white"/> : 'DAFTAR'}</ButtonText>
+                    </Button>
+                    <Button
+                        mt="$3"
+                        minWidth="$80"
+                        variant="solid"
+                        bg="white"
+                        isDisabled={false} isFocusVisible={false} onPress={() => navigation.navigate('LoginScreen')}>
+                        <ButtonText color="#161D6F">MASUK</ButtonText>
+                    </Button>
+                </Box>
             </ScrollView>
         </KeyboardAvoidingView>
     )

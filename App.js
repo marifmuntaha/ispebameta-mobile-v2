@@ -1,21 +1,18 @@
-import Route from "./src/route";
-import './src/utils/axiosConfig';
-import {actionType, Dispatch} from "./src/reducer";
-import {useEffect, useState} from "react";
-import {RootSiblingParent} from "react-native-root-siblings";
+import {Provider} from "react-redux";
+import {store} from "./src/redux/store";
+import {GluestackUIProvider} from "@gluestack-ui/themed";
+import { config } from "@gluestack-ui/config"
+import {NavigationContainer} from "@react-navigation/native";
+import AllRoutes from "./src/route/Routes";
+
 export default function App() {
-    const [auth, setAuth] = useState(false);
-    const [user, setUser] = useState([]);
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        loading && Dispatch(actionType.AUTH_INFO, {
-            setData: setUser,
-            setAuth: setAuth
-        }).then(() => setLoading(false));
-    },[]);
     return (
-        <RootSiblingParent>
-            {!loading && <Route auth={auth} user={user} />}
-        </RootSiblingParent>
+        <Provider store={store}>
+            <GluestackUIProvider config={config}>
+            <NavigationContainer>
+                <AllRoutes/>
+            </NavigationContainer>
+            </GluestackUIProvider>
+        </Provider>
     )
 }
