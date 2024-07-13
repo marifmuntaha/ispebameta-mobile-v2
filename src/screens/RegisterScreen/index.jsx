@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
     View
 } from "react-native";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {
     Alert,
     AlertText,
@@ -22,14 +22,22 @@ import {
 } from "@gluestack-ui/themed";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
-import {signupUser} from "../../redux/auth/actions";
+import {resetAuth, signupUser} from "../../redux/auth/actions";
 
 const RegisterScreen = () => {
     const dispatch = useDispatch();
     const selector = useSelector(state => state.auth);
     const {success, loading, error} = selector;
     const navigation = useNavigation();
-
+    const handleSubmit = () => {
+        dispatch(signupUser(formData.name,
+            formData.email,
+            formData.password,
+            formData.password_confirmation,
+            formData.nip,
+            formData.institution,
+            formData.position))
+    }
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -40,6 +48,21 @@ const RegisterScreen = () => {
         position: '',
 
     });
+    useEffect(() => {
+        success && setFormData({
+            name: '',
+            email: '',
+            password: '',
+            password_confirmation: '',
+            nip: '',
+            institution: '',
+            position: '',
+        });
+        dispatch(resetAuth());
+    }, [success]);
+    useEffect(() => {
+        dispatch(resetAuth());
+    }, [dispatch]);
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "height" : "height"}
@@ -72,7 +95,7 @@ const RegisterScreen = () => {
                                 type="text"
                                 color="white"
                                 value={formData.name}
-                                onChange={(e) => setFormData({...formData, name: e})}
+                                onChangeText={(e) => setFormData({...formData, name: e})}
                             />
                         </Input>
                     </FormControl>
@@ -85,7 +108,7 @@ const RegisterScreen = () => {
                                 type="text"
                                 color="white"
                                 value={formData.email}
-                                onChange={(e) => setFormData({...formData, email: e})}
+                                onChangeText={(e) => setFormData({...formData, email: e})}
                             />
                         </Input>
                     </FormControl>
@@ -98,7 +121,7 @@ const RegisterScreen = () => {
                                 type="password"
                                 color="white"
                                 value={formData.password}
-                                onChange={(e) => setFormData({...formData, password: e})}
+                                onChangeText={(e) => setFormData({...formData, password: e})}
                             />
                         </Input>
                     </FormControl>
@@ -111,7 +134,7 @@ const RegisterScreen = () => {
                                 type="password"
                                 color="white"
                                 value={formData.password_confirmation}
-                                onChange={(e) => setFormData({...formData, password_confirmation: e})}
+                                onChangeText={(e) => setFormData({...formData, password_confirmation: e})}
                             />
                         </Input>
                     </FormControl>
@@ -124,7 +147,7 @@ const RegisterScreen = () => {
                                 type="text"
                                 color="white"
                                 value={formData.nip}
-                                onChange={(e) => setFormData({...formData, nip: e})}
+                                onChangeText={(e) => setFormData({...formData, nip: e})}
                             />
                         </Input>
                     </FormControl>
@@ -137,7 +160,7 @@ const RegisterScreen = () => {
                                 type="text"
                                 color="white"
                                 value={formData.institution}
-                                onChange={(e) => setFormData({...formData, institution: e})}
+                                onChangeText={(e) => setFormData({...formData, institution: e})}
                             />
                         </Input>
                     </FormControl>
@@ -150,7 +173,7 @@ const RegisterScreen = () => {
                                 type="text"
                                 color="white"
                                 value={formData.position}
-                                onChange={(e) => setFormData({...formData, position: e})}
+                                onChangeText={(e) => setFormData({...formData, position: e})}
                             />
                         </Input>
                     </FormControl>
@@ -159,7 +182,7 @@ const RegisterScreen = () => {
                         minWidth="$80"
                         variant="solid"
                         bg="$warning400"
-                        onPress={() => dispatch(signupUser(formData))}
+                        onPress={handleSubmit}
                     >
                         <ButtonText>{loading ? <Spinner size="small" color="white"/> : 'DAFTAR'}</ButtonText>
                     </Button>

@@ -3,7 +3,7 @@ import {APICore} from './APICore'
 const api = new APICore()
 
 // account
-function login(params: { username: string; password: string }) {
+function login(params: { email: string; password: string }) {
     const baseUrl = '/auth/login'
     return api.create(`${baseUrl}`, params)
 }

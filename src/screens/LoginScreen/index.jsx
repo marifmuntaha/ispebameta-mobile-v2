@@ -19,12 +19,20 @@ import {loginUser, resetAuth} from "../../redux/auth/actions";
 const LoginScreen = () => {
     const dispatch = useDispatch();
     const selector = useSelector(state => state.auth);
-    const {user, loading, error} = selector;
+    const {user, success, loading, error} = selector;
     const navigation = useNavigation();
+    const handleSubmit = () => {
+        dispatch(loginUser(formData.email, formData.password));
+    }
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
+    useEffect(() => {
+        success && user &&
+        navigation.navigate('DashboardScreen');
+        dispatch(resetAuth())
+    }, [success]);
     useEffect(() => {
         dispatch(resetAuth())
     }, [dispatch]);
@@ -62,7 +70,7 @@ const LoginScreen = () => {
                             type="password"
                             color="white"
                             value={formData.password}
-                            onChangeText={(e) => setFormData({formData, password: e})}
+                            onChangeText={(e) => setFormData({...formData, password: e})}
                         />
                     </Input>
                 </FormControl>
@@ -71,11 +79,7 @@ const LoginScreen = () => {
                     minWidth="$80"
                     variant="solid"
                     bg="$warning400"
-                    onPress={() => {
-                        dispatch(loginUser({
-                            formData: [formData.email, formData.password]
-                        }))
-                    }}>
+                    onPress={() => handleSubmit()}>
                     <ButtonText>{loading ? <Spinner size="small" color="white"/> : 'MASUK'}</ButtonText>
                 </Button>
                 <Button

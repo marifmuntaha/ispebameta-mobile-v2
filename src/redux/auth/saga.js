@@ -7,9 +7,9 @@ import {all, call, fork, put, takeEvery} from "redux-saga/effects";
 
 const api = new APICore();
 
-function* login({payload: {username, password}}): SagaIterator {
+function* login({payload: {email, password}}): SagaIterator {
     try {
-        const response = yield call(loginApi, {username, password})
+        const response = yield call(loginApi, {email, password})
         const data = response && response.data;
         const user = data && data.result;
         api.setLoggedInUser(user);
